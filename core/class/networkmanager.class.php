@@ -35,6 +35,65 @@ class networkmanager extends eqLogic {
 
   /*     * ***********************Methode static*************************** */
 
+  public static function deamon_info() {
+    $return = array();
+    $return['log'] = 'networkmanager';
+    $return['state'] = self::statusService() ?: 'nok';
+    $return['launchable'] = 'ok';
+    return $return;
+  }
+
+  public static function deamon_start() {
+    self::deamon_stop();
+    $deamon_info = self::deamon_info();
+    if ($deamon_info['launchable'] != 'ok') {
+      throw new Exception(__('Veuillez vérifier la configuration', __FILE__));
+    }
+    log::add(__CLASS__, 'info', 'Lancement démon NetworkManager');
+
+    shell_exec(system::getCmdSudo() . ' systemctl start NetworkManager');
+    $i = 0;
+    while ($i < 5) {
+      $deamon_info = self::deamon_info();
+      if ($deamon_info['state'] == 'ok') {
+          break;
+      }
+      sleep(1);
+      $i++;
+    }
+
+    if ($i >= 5) {
+      log::add(__CLASS__, 'error', __('Impossible de lancer le démon, vérifiez le log', __FILE__) , 'unableStartDeamon');
+      return false;
+    }
+    
+    message::removeAll(__CLASS__, 'unableStartDeamon');
+    return true;
+  }
+
+  public static function deamon_stop() {
+    shell_exec(system::getCmdSudo() . ' systemctl stop NetworkManager');
+    sleep(1);
+  }
+
+
+  public static function statusService() {
+    $return = shell_exec(system::getCmdSudo() . ' systemctl status NetworkManager');
+    $pattern = '/Active: (\w+)/';
+    $status_active = '';
+    if (preg_match($pattern, $return, $matches)) {
+        $status_active = $matches[1];
+        if($status_active == 'active'){
+          $status_active = 'ok';
+        }else{
+          $status_active = 'nok';
+        }
+    } else {
+      log::add('networkmanager', 'info', 'Status du service : '.$return);
+    }
+    return $status_active;
+  }
+
   /*
   * Fonction exécutée automatiquement toutes les minutes par Jeedom
   public static function cron() {}
