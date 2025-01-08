@@ -3,8 +3,10 @@
     "name": "networkmanager",
     "pluginVersion": "0.1",
     "description": {
-        "fr_FR": "Le plugin Network Manager permet à Jeedom de gérer la configuration réseau d'un système via le service Network Manager"
-    },
+        "fr_FR": "Le plugin Network Manager permet à Jeedom de gérer la configuration réseau d'un système via le service Network Manager",
+        "en_US": "The Network Manager plugin allows Jeedom to manage the network configuration of a system via the Network Manager service",
+        "es_ES": "El plugin Network Manager permite a Jeedom gestionar la configuración de red de un sistema a través del servicio Network Manager"
+    },  
     "licence": "AGPL",
     "author": "Jeedom SAS",
     "require": "4.2",
@@ -16,13 +18,12 @@
     "hasDependency": true,
     "hasOwnDeamon": false,
     "maxDependancyInstallTime": 0,
-    "changelog_beta": "https://doc.jeedom.com/#language#/plugins/programming/networkmanager/beta/changelog",
-    "changelog": "https://doc.jeedom.com/#language#/plugins/programming/networkmanager/changelog",
-    "documentation_beta": "https://doc.jeedom.com/#language#/plugins/programming/networkmanager/beta",
-    "documentation": "https://doc.jeedom.com/#language#/plugins/programming/networkmanager",
+    "changelog_beta": "https://doc.jeedom.com/#language#/plugins/monitoring/networkmanager/beta/changelog",
+    "changelog": "https://doc.jeedom.com/#language#/plugins/monitoring/networkmanager/changelog",
+    "documentation_beta": "https://doc.jeedom.com/#language#/plugins/monitoring/networkmanager/beta",
+    "documentation": "https://doc.jeedom.com/#language#/plugins/monitoring/networkmanager",
     "link": {
-        "forum": "Lien vers le forum",
-        "video": "Lien vers une video"
+        "forum": "https://community.jeedom.com/tag/plugin-networkmanager"
     },
     "language": [
         "fr_FR",
@@ -40,7 +41,6 @@
         "luna",
         "atlas",
         "rpi",
-        "docker",
         "diy"
     ]
 }
